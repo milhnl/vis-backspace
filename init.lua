@@ -1,19 +1,20 @@
 local backspace = function(tabwidth)
-  tabwidth = tabwidth or vis.win.tabwidth
-  if tabwidth == nil or win.selection.pos == 0 then
-    vis:feedkeys('<vis-delete-char-prev>')
-  else
-    for sel in win:selections_iterator() do
-      local pos = sel.pos
-      local l, r = win.file:match_at(lpeg.P(" ") ^ 1, pos - 1, 200)
+  tabwidth = tabwidth or vis.win.tabwidth or 1
+  local file = vis.win.file
+  for sel in vis.win:selections_iterator() do
+    if sel.pos ~= nil and sel.pos ~= 0 then
+      local pos, col = sel.pos, sel.col
+      local delete, move = 1, 1
+      local l, r = file:match_at(lpeg.P(" ") ^ 1, pos - 1, 200)
       if l ~= nil and r ~= nil then
-        win.file:delete(l, (r - l - 1) % tabwidth + 1)
-      else
-        win.file:delete(pos - 1, 1)
+        delete = (r - l - 1) % tabwidth + 1
+        move = (col - 2) % tabwidth + 1
       end
+      file:delete(pos - delete, delete)
+      sel.pos = math.max(pos - move, 0)
     end
-    vis.win:draw()
   end
+  vis.win:draw()
 end
 
 vis.events.subscribe(vis.events.INIT, function()

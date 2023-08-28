@@ -1,5 +1,5 @@
 local backspace = function(tabwidth)
-  tabwidth = tabwidth or vis.win.tabwidth or 1
+  tabwidth = tabwidth or (vis.options and vis.options.tabwidth) or 1
   local file = vis.win.file
   for sel in vis.win:selections_iterator() do
     if sel.pos ~= nil and sel.pos ~= 0 then

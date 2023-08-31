@@ -5,8 +5,12 @@ local backspace = function(tabwidth)
     if sel.pos ~= nil and sel.pos ~= 0 then
       local pos, col = sel.pos, sel.col
       local delete, move = 1, 1
-      local start = lpeg.match(lpeg.P(" ") ^ 1, file.lines[sel.line])
-      if start ~= nil and col <= start then
+      local start = vis.lpeg.match(vis.lpeg.P(' ') ^ 1, file.lines[sel.line])
+      if
+          (vis.win.options == nil or vis.win.options.expandtab)
+          and start ~= nil
+          and col <= start
+      then
         delete = (start - 2) % tabwidth + 1
         move = math.max(col - 2, 0) % tabwidth + 1
       end

@@ -11,6 +11,8 @@ A plugin to delete to the last tabstop when pressing backspace in vis.
     with 7 spaces will be left with 4 after pressing backspace.
   - Aligns even the cursor. This might not be important to you, but the
     cursor is also aligned to the first tabstop it encounters to its left.
+  - When `vis.options` is available, automatically disables itself when
+    `expandtab` is false.
 
 #### Installation
 

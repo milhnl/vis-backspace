@@ -4,9 +4,9 @@ A plugin to delete to the last tabstop when pressing backspace in vis.
 
 #### Features
 
-  - Uses `vis.options.tabwidth` for versions of vis >= 0.9. Up until
-    that version no plugin could integrate with it, and required you to
-    set the amount of spaces to delete by hand.
+  - Uses `vis.options.tabwidth` for versions of vis >= 0.9 (see note
+    below). Up until that version no plugin could integrate with it,
+    and required you to set the amount of spaces to delete by hand.
   - Automatically aligns code to the tabstops. So a line of code indented
     with 7 spaces will be left with 4 after pressing backspace.
   - Aligns even the cursor. This might not be important to you, but the
@@ -29,3 +29,9 @@ automatically bind to backspace in insert mode. If you want to use your
 own logic for setting the tab width: `require('vis-backspace')` returns
 a function with one argument, the number of spaces to delete. You can
 bind calling this function to backspace yourself.
+
+#### Note on vis versions before 0.9
+
+If you want the automatic detection of tabwidth, look at the
+[vis-options-backport](https://github.com/milhnl/vis-options-backport)
+plugin. This will 'polyfill' that for older versions.

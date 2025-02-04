@@ -7,7 +7,7 @@ local backspace = function(tabwidth)
     if sel.pos ~= nil and sel.pos ~= 0 then
       local pos, col = sel.pos, sel.col
       local delete, move = 1, 1
-      local start = vis.lpeg.match(vis.lpeg.P(' ') ^ 1, file.lines[sel.line])
+      local start = string.match(file.lines[sel.line], '^ +()')
       if
           (vis.win.options == nil or vis.win.options.expandtab)
           and start ~= nil
